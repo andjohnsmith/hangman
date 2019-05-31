@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Grammar Guru</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" href="stylesheets\style.css">
+		<script
+			src="https://code.jquery.com/jquery-3.3.1.js"
+			integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+			crossorigin="anonymous">
+		</script>
+		<script src="javascripts\app.js">
+		</script>
+	</head>
+	<body>
+		<div class="container">
+
+			<div id="game-list">
+				<div class="well well-sm" id="menu">
+					<form class="form-inline">
+						<div class="form-group">
+							<label for="font">Font</label>
+							<select class="form-control" id="font"/></select>
+						</div>
+						<div class="form-group">
+							<label for="level">Level</label>
+							<select class="form-control" id="level"/></select>
+						</div>
+						<div class="form-group">
+							<label for="wordBackground">Word</label>
+							<input class="form-control" type="color" id="wordBackground"/>
+						</div>
+						<div class="form-group">
+							<label for="guessBackground">Guess</label>
+							<input class="form-control" type="color" id="guessBackground"/>
+						</div>
+						<div class="form-group">
+							<label for="foreground">Fore</label>
+							<input class="form-control" type="color" id="foreground"/>
+						</div>
+						<input class="btn btn-primary" type="button" value="New Game" onclick="createGame()">
+					</form>
+				</div>
+				
+				<table id="games" class="table">
+					<tr>
+						<th>Level</th><th>Phrase</th><th>Remaining</th>
+						<th>Answer</th><th>Status</th>
+					<tr>
+				</table>
+			</div>
+			
+			<div id="game" style='display:none;'>
+				<div class="well well-sm">
+					<form class="form-inline" style="margin-top: 1em">
+						<span id="guessesRemaining"></span>
+						<input type="text" id="guess" size="1">
+						<span class="btn btn-sm btn-primary" onclick="makeGuess()">Guess</span>
+						<span class="glyphicon glyphicon-remove pull-right" onclick="closeGame()"></span>
+					</form>
+					<div id='word'></div>
+					<div id='guesses'></div>
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
