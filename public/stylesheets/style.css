@@ -1,59 +1,64 @@
 span.btn {
-	margin-right: 1em;
+  margin-right: 1em;
 }
 
 div.well {
-	margin-top: 1em;
+  margin-top: 1em;
 }
 
-th, td {
-	padding: .5em 1em;
+th,
+td {
+  padding: 0.5em 1em;
 }
 
-#menu, #games {
-	padding: 1em;
+#menu,
+#games {
+  padding: 1em;
 }
 
 [value='New Game'] {
-	float: right;
+  float: right;
 }
 
 .form-group {
-	padding: 0.5em;
+  padding: 0.5em;
 }
 
-td:hover, .glyphicon:hover {
-	cursor: pointer;
+td:hover,
+.glyphicon:hover {
+  cursor: pointer;
 }
 
-#wordBackground, #guessBackground, #foreground {
-	width: 3em;
-	margin: 0.5em;
-	padding: 0;
+#wordBackground,
+#guessBackground,
+#foreground {
+  width: 3em;
+  margin: 0.5em;
+  padding: 0;
 }
 
 #createGame {
-	float: right;
+  float: right;
 }
 
-#games, .form-inline {
-	background-color: #F5F4F6;
+#games,
+.form-inline {
+  background-color: #f5f4f6;
 }
 
 .tile {
-	padding: 1.5em;
-	margin: 0.5em;
-	display: inline-block;
-	width: 21px;
-	height: 34px;
-	font-size: 1.5em;
+  padding: 1.5em;
+  margin: 0.5em;
+  display: inline-block;
+  width: 21px;
+  height: 34px;
+  font-size: 1.5em;
 }
 
 #guesses {
-	float: right;
+  float: right;
 }
 
-#game>div {
-	overflow: auto;
+#game > div {
+  overflow: auto;
 }
-
