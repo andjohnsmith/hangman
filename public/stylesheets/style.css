@@ -55,6 +55,10 @@ td:hover,
   font-size: 1.5em;
 }
 
+#word {
+  display: inline-block;
+}
+
 #guesses {
   float: right;
 }
