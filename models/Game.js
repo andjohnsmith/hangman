@@ -7,6 +7,7 @@ const GameSchema = new Schema(
     answer: { type: String, required: true },
     turns: { type: Number, required: true },
     guesses: { type: String },
+    difficulty: { type: Number, required: true },
   },
   { timestamps: true },
 );
