@@ -1,11 +1,13 @@
-import { GET_GAMES, ADD_GAME, DELETE_GAME } from '../actions/types';
+import {
+  GET_GAMES,
+  ADD_GAME,
+  DELETE_GAME,
+  GAMES_LOADING,
+} from '../actions/types';
 
 const initialState = {
-  games: [
-    { id: 1, view: '____', turns: 3 },
-    { id: 2, view: '__s__', turns: 2 },
-    { id: 3, view: '___', turns: 4 },
-  ],
+  games: [],
+  loading: false,
 };
 
 export default function (state = initialState, action) {
@@ -13,6 +15,23 @@ export default function (state = initialState, action) {
     case GET_GAMES:
       return {
         ...state,
+        games: action.payload,
+        loading: false,
+      };
+    case ADD_GAME:
+      return {
+        ...state,
+        games: [action.payload, ...state.games],
+      };
+    case DELETE_GAME:
+      return {
+        ...state,
+        games: state.games.filter((game) => game._id !== action.payload),
+      };
+    case GAMES_LOADING:
+      return {
+        ...state,
+        loading: true,
       };
     default:
       return state;
