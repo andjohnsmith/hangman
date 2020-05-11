@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const games = require('./routes/api/games');
+const words = require('./routes/api/words');
 
 const app = express();
 
@@ -21,6 +22,7 @@ mongoose
 
 // use routes
 app.use('/api/games', games);
+app.use('/api/words', words);
 
 const port = process.env.PORT || 5000;
 

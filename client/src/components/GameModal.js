@@ -15,7 +15,7 @@ import { addGame } from '../actions/gameActions';
 class GameModal extends Component {
   state = {
     modal: false,
-    difficulty: 0,
+    difficulty: '',
   };
 
   toggle = () => {
@@ -32,7 +32,6 @@ class GameModal extends Component {
     e.preventDefault();
 
     const newGame = {
-      id: 1,
       difficulty: this.state.difficulty,
     };
 
@@ -48,18 +47,21 @@ class GameModal extends Component {
           Add Game
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Add to Game List</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Create a New Game</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
               <FormGroup>
-                <Label for="game">Game</Label>
+                <Label for="difficulty">Difficulty</Label>
                 <Input
-                  type="text"
+                  type="select"
                   name="difficulty"
-                  id="game"
-                  placeholder="How hard?"
+                  id="difficulty"
                   onChange={this.onChange}
-                />
+                >
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </Input>
                 <Button color="dark">CreateGame</Button>
               </FormGroup>
             </Form>
