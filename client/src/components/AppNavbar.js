@@ -26,7 +26,7 @@ class AppNavbar extends Component {
       <React.Fragment>
         <Navbar color="dark" dark expand="sm" className="mb-5">
           <Container>
-            <NavbarBrand href="/">Hangman</NavbarBrand>
+            <NavbarBrand href="/games">Hangman</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>

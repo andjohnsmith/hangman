@@ -4,9 +4,11 @@ const router = express.Router();
 const Game = require('../../models/Game');
 const Word = require('../../models/Word');
 
-// @route   GET /api/games
-// @desc    Retrieve all games
-// @access  Public
+/**
+ * @route   GET /api/games
+ * @desc    Retrieve all games
+ * @access  Public
+ */
 router.get('/', (req, res) => {
   Game.find()
     .sort({ updatedAt: -1 })
@@ -15,9 +17,11 @@ router.get('/', (req, res) => {
     });
 });
 
-// @route   POST /api/games
-// @desc    Create a game
-// @access  Public
+/**
+ * @route   POST /api/games
+ * @desc    Create a game
+ * @access  Public
+ */
 router.post('/', async (req, res) => {
   try {
     const words = await Word.find();
@@ -70,6 +74,7 @@ router.put('/:id', async (req, res) => {
   try {
     let game = await Game.findById(req.params.id);
     if (!game) throw Error('Game does not exist');
+
     if (
       game.status !== 'unfinished' ||
       (game.guesses && game.guesses.includes(req.body.guess))
@@ -91,6 +96,7 @@ router.put('/:id', async (req, res) => {
         // replace char in view with guess
         game.view = game.view.substr(0, i) + guess + game.view.substr(i + 1);
         isPresent = true;
+
         if (game.view === word.answer) {
           // word is complete
           game.status = 'victory';

@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
 
   if (length < 6) {
     difficulty = 'easy';
-  } else if (length < 9) {
+  } else if (length < 10) {
     difficulty = 'medium';
   } else {
     difficulty = 'hard';

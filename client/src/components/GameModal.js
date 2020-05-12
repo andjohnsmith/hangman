@@ -10,7 +10,7 @@ import {
   Input,
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import { addGame } from '../actions/gameActions';
+import { addGame } from '../actions/listActions';
 
 class GameModal extends Component {
   state = {
@@ -62,7 +62,7 @@ class GameModal extends Component {
                   <option value="medium">Medium</option>
                   <option value="hard">Hard</option>
                 </Input>
-                <Button color="dark">CreateGame</Button>
+                <Button color="dark">Create Game</Button>
               </FormGroup>
             </Form>
           </ModalBody>

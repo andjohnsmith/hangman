@@ -1,37 +1,26 @@
-import {
-  GET_GAMES,
-  ADD_GAME,
-  DELETE_GAME,
-  GAMES_LOADING,
-} from '../actions/types';
+import { GET_GAME, MAKE_GUESS, SET_GAME } from '../actions/types';
 
 const initialState = {
-  games: [],
-  loading: false,
+  game: '',
+  id: '',
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_GAMES:
+    case GET_GAME:
       return {
-        ...state,
-        games: action.payload,
-        loading: false,
+        id: state.id,
+        game: action.payload,
       };
-    case ADD_GAME:
+    case SET_GAME:
       return {
         ...state,
-        games: [action.payload, ...state.games],
+        id: action.payload,
       };
-    case DELETE_GAME:
+    case MAKE_GUESS:
       return {
-        ...state,
-        games: state.games.filter((game) => game._id !== action.payload),
-      };
-    case GAMES_LOADING:
-      return {
-        ...state,
-        loading: true,
+        id: state.id,
+        game: action.payload,
       };
     default:
       return state;
