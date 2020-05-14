@@ -15,7 +15,7 @@ import { addGame } from '../actions/listActions';
 class GameModal extends Component {
   state = {
     modal: false,
-    difficulty: '',
+    difficulty: 'easy',
   };
 
   toggle = () => {
@@ -42,8 +42,12 @@ class GameModal extends Component {
 
   render() {
     return (
-      <div>
-        <Button color="dark" className="mb-2" onClick={this.toggle}>
+      <React.Fragment>
+        <Button
+          className="btn btn-primary btn-outline-white px-4 py-3"
+          onClick={this.toggle}
+        >
+          <i className="fas fa-plus mr-2"></i>
           Add Game
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
@@ -62,12 +66,14 @@ class GameModal extends Component {
                   <option value="medium">Medium</option>
                   <option value="hard">Hard</option>
                 </Input>
-                <Button color="dark">Create Game</Button>
+                <Button color="dark" className="d-block mt-4 ml-auto">
+                  Create Game
+                </Button>
               </FormGroup>
             </Form>
           </ModalBody>
         </Modal>
-      </div>
+      </React.Fragment>
     );
   }
 }

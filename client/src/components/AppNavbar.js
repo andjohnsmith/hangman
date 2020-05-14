@@ -24,7 +24,7 @@ class AppNavbar extends Component {
   render() {
     return (
       <React.Fragment>
-        <Navbar color="dark" dark expand="sm" className="mb-5">
+        <Navbar color="dark" dark expand="sm" className="ftco-navbar-light">
           <Container>
             <NavbarBrand href="/games">Hangman</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />

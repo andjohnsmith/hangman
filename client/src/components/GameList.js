@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import GameModal from './GameModal';
 import { Container, Table, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import { getGames, deleteGame } from '../actions/listActions';
-import { setGame } from '../actions/gameActions';
 import PropTypes from 'prop-types';
 
 class GameList extends Component {
@@ -11,7 +11,6 @@ class GameList extends Component {
   }
 
   onPlayClick = (id) => {
-    // this.props.setGame(id);
     window.location.href = `/game/${id}`;
   };
 
@@ -29,57 +28,85 @@ class GameList extends Component {
     const { games } = this.props.list;
 
     return (
-      <Container>
-        <Table hover>
-          <caption>List of games</caption>
-          <thead>
-            <tr>
-              <th style={{ width: '70%' }}>View</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {games.map(({ _id, view, status, turns }) => (
-              <tr key={_id} className={this.getRowColor(status)}>
-                <td>{view}</td>
-                <td>
-                  {status === 'unfinished' ? turns + ' turns left' : status}
-                </td>
-                <td>
-                  <Button
-                    className="ml-2"
-                    color="success"
-                    size="sm"
-                    onClick={this.onPlayClick.bind(this, _id)}
-                  >
-                    &times;
-                  </Button>
-                  <Button
-                    className="ml-2"
-                    color="danger"
-                    size="sm"
-                    onClick={this.onDeleteClick.bind(this, _id)}
-                  >
-                    &times;
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Container>
+      <React.Fragment>
+        <section className="home-slider ftco-degree-bg">
+          <div className="slider-item">
+            <div className="overlay"></div>
+            <div className="container">
+              <div className="row slider-text align-items-center justify-content-center">
+                <div className="col-md-10 text-center">
+                  <h1 className="mb-4">
+                    My
+                    <strong> Games.</strong>
+                  </h1>
+                  <p>
+                    Find your collection of games here. Admire your victories,
+                    cut your losses, or plan your next move.
+                  </p>
+                  <GameModal />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="ftco-section-featured ftco-degree-bg">
+          <Container>
+            <Table
+              hover
+              bordered
+              responsive
+              style={{ backgroundColor: 'white' }}
+            >
+              <thead className="thead-light">
+                <tr>
+                  <th>View</th>
+                  <th>Difficulty</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {games.map(({ _id, view, difficulty, status, turns }) => (
+                  <tr key={_id} className={this.getRowColor(status)}>
+                    <td className="view">{view}</td>
+                    <td>{difficulty}</td>
+                    <td>
+                      {status === 'unfinished' ? turns + ' turns left' : status}
+                    </td>
+                    <td>
+                      <Button
+                        className="mr-1"
+                        color="primary"
+                        size="sm"
+                        onClick={this.onPlayClick.bind(this, _id)}
+                      >
+                        <i className="fas fa-play"></i>
+                      </Button>
+                      <Button
+                        color="primary"
+                        size="sm"
+                        onClick={this.onDeleteClick.bind(this, _id)}
+                      >
+                        <i className="fas fa-trash"></i>
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </Container>
+        </section>
+      </React.Fragment>
     );
   }
 }
 
 GameList.propTypes = {
   getGames: PropTypes.func.isRequired,
+  deleteGame: PropTypes.func.isRequired,
   list: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({ list: state.list });
 
-export default connect(mapStateToProps, { getGames, deleteGame, setGame })(
-  GameList,
-);
+export default connect(mapStateToProps, { getGames, deleteGame })(GameList);

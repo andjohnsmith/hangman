@@ -3,18 +3,22 @@ const router = express.Router();
 
 const Word = require('../../models/Word');
 
-// @route   GET /api/words
-// @desc    Retrieve all words
-// @access  Public
+/**
+ * @route   GET /api/words
+ * @desc    Retrieve all words
+ * @access  Public
+ */
 router.get('/', (req, res) => {
   Word.find().then((words) => {
     res.json(words);
   });
 });
 
-// @route   POST /api/words
-// @desc    Create a word
-// @access  Public
+/**
+ * @route   POST /api/words
+ * @desc    Create a word
+ * @access  Public
+ */
 router.post('/', (req, res) => {
   const answer = req.body.answer;
   let view = '';
@@ -48,9 +52,11 @@ router.post('/', (req, res) => {
   newWord.save().then((word) => res.json(word));
 });
 
-// @route   DELETE /api/words/:id
-// @desc    Delete a word
-// @access  Public
+/**
+ * @route   DELETE /api/words/:id
+ * @desc    Delete a word
+ * @access  Public
+ */
 router.delete('/:id', (req, res) => {
   Word.findById(req.params.id)
     .then((word) => word.remove().then(() => res.json({ success: true })))

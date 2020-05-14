@@ -13,6 +13,9 @@ router.get('/', (req, res) => {
   Game.find()
     .sort({ updatedAt: -1 })
     .then((games) => {
+      for (let game of games) {
+        game.word = undefined;
+      }
       res.json(games);
     });
 });
@@ -43,6 +46,8 @@ router.post('/', async (req, res) => {
       throw Error('Something went wrong while saving.');
     }
 
+    game.word = undefined;
+
     res.status(200).json(game);
   } catch (e) {
     res.status(400).json({ message: e.message });
@@ -58,6 +63,8 @@ router.get('/:id', async (req, res) => {
   try {
     const game = await Game.findById(req.params.id);
     if (!game) throw Error('Game does not exist');
+
+    game.word = undefined;
 
     res.status(200).json(game);
   } catch (e) {
@@ -114,6 +121,8 @@ router.put('/:id', async (req, res) => {
 
     const updatedGame = await game.save();
     if (!updatedGame) throw Error('Could not update game');
+
+    updatedGame.word = undefined;
 
     res.status(200).json(updatedGame);
   } catch (e) {

@@ -1,47 +1,135 @@
 import React, { Component } from 'react';
-import { Container, FormGroup, Input, Label, Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { Container, Row, Col, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import { getGame, makeGuess } from '../actions/gameActions';
 
 class GameView extends Component {
-  state = {
-    guess: '',
-  };
-
   componentDidMount() {
     this.props.getGame(this.props.match.params.id);
   }
-
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
 
   onGuessClick = (id) => {
     this.props.makeGuess(id, this.state);
   };
 
-  render() {
-    const { _id, view, guesses } = this.props.game.game;
+  LetterButton = (letter) => {
+    const { game } = this.props.game;
+
+    const isInView = game.view && game.view.includes(letter);
+    const wasGuessed =
+      isInView || (game.guesses && game.guesses.includes(letter))
+        ? true
+        : false;
+
+    let color, disabled;
+    if (isInView) {
+      color = 'success';
+      disabled = true;
+    } else if (wasGuessed) {
+      color = 'danger';
+      disabled = true;
+    } else {
+      color = 'secondary';
+      disabled = false;
+    }
 
     return (
-      <Container>
-        <h1>{view}</h1>
-        <form>
-          <FormGroup>
-            <Label for="guess">Guess</Label>
-            <Input
-              type="text"
-              name="guess"
-              id="guess"
-              onChange={this.onChange}
-            ></Input>
-          </FormGroup>
-          <Button onClick={this.onGuessClick.bind(this, _id)}>
-            Make Guess
-          </Button>
-        </form>
-        <div>{guesses}</div>
-      </Container>
+      <Col>
+        <Button
+          className="mr-0"
+          size="sm"
+          color={color}
+          onClick={() => this.props.makeGuess(game._id, { guess: letter })}
+          disabled={disabled}
+        >
+          {letter.toUpperCase()}
+        </Button>
+      </Col>
+    );
+  };
+
+  render() {
+    const { game } = this.props.game;
+
+    return (
+      <React.Fragment>
+        <section className="home-slider ftco-degree-bg">
+          <div
+            className="slider-item bread-wrap"
+            data-stellar-background-ratio="0.5"
+          >
+            <div className="overlay"></div>
+            <div className="container">
+              <div className="row slider-text justify-content-center align-items-center">
+                <div className="col-md-10 col-sm-12 ftco-animate mb-4 text-center">
+                  <p className="breadcrumbs">
+                    <span className="mr-2">
+                      <Link to="/games">List</Link>
+                    </span>
+                    / <span>Game</span>
+                  </p>
+                  <h1 className="mb-3 bread view">{game.view}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="ftco-section ftco-degree-bg contact-section">
+          <Container className="bg-white">
+            <div className="row d-flex mb-5 contact-info">
+              <div className="col-md-12 mb-4">
+                <h2 className="h4 view">{game.view}</h2>
+              </div>
+              <div className="w-100"></div>
+            </div>
+            <div className="row block-9">
+              <div className="col-md-6 pr-md-5">
+                <Row>
+                  {this.LetterButton('a')}
+                  {this.LetterButton('b')}
+                  {this.LetterButton('c')}
+                  {this.LetterButton('d')}
+                  {this.LetterButton('e')}
+                  {this.LetterButton('f')}
+                </Row>
+                <Row>
+                  {this.LetterButton('g')}
+                  {this.LetterButton('h')}
+                  {this.LetterButton('i')}
+                  {this.LetterButton('j')}
+                  {this.LetterButton('k')}
+                  {this.LetterButton('l')}
+                </Row>
+                <Row>
+                  {this.LetterButton('m')}
+                  {this.LetterButton('n')}
+                  {this.LetterButton('o')}
+                  {this.LetterButton('p')}
+                  {this.LetterButton('q')}
+                  {this.LetterButton('r')}
+                </Row>
+                <Row>
+                  {this.LetterButton('s')}
+                  {this.LetterButton('t')}
+                  {this.LetterButton('u')}
+                  {this.LetterButton('v')}
+                  {this.LetterButton('w')}
+                  {this.LetterButton('x')}
+                </Row>
+                <Row>
+                  {this.LetterButton('y')}
+                  {this.LetterButton('z')}
+                </Row>
+              </div>
+              <div className="col-md-6" id="image">
+                <img src={`/images/${game.turns}.png`} alt="game"></img>
+              </div>
+            </div>
+          </Container>
+        </section>
+      </React.Fragment>
     );
   }
 }
