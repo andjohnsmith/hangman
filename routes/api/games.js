@@ -10,7 +10,7 @@ const Word = require('../../models/Word');
  * @desc    Retrieve all games
  * @access  Public
  */
-router.get('/', auth, (req, res) => {
+router.get('/', (req, res) => {
   Game.find()
     .sort({ updatedAt: -1 })
     .then((games) => {
@@ -24,7 +24,7 @@ router.get('/', auth, (req, res) => {
 /**
  * @route   POST /api/games
  * @desc    Create a game
- * @access  Public
+ * @access  Private
  */
 router.post('/', auth, async (req, res) => {
   try {
@@ -58,9 +58,9 @@ router.post('/', auth, async (req, res) => {
 /**
  * @route   GET /api/games/:id
  * @desc    Get a game
- * @access  Public
+ * @access  Private
  */
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
   try {
     const game = await Game.findById(req.params.id);
     if (!game) throw Error('Game does not exist');
@@ -76,9 +76,9 @@ router.get('/:id', async (req, res) => {
 /**
  * @route   PUT /api/games/:id
  * @desc    Update a game
- * @access  Public
+ * @access  Private
  */
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
   try {
     let game = await Game.findById(req.params.id);
     if (!game) throw Error('Game does not exist');
@@ -138,9 +138,9 @@ router.put('/:id', async (req, res) => {
 /**
  * @route   DELETE /api/games/:id
  * @desc    Delete a game
- * @access  Public
+ * @access  Private
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', auth, (req, res) => {
   Game.findById(req.params.id)
     .then((game) => game.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));
