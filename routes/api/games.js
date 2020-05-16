@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../../middleware/auth');
 
 const Game = require('../../models/Game');
 const Word = require('../../models/Word');
@@ -9,7 +10,7 @@ const Word = require('../../models/Word');
  * @desc    Retrieve all games
  * @access  Public
  */
-router.get('/', (req, res) => {
+router.get('/', auth, (req, res) => {
   Game.find()
     .sort({ updatedAt: -1 })
     .then((games) => {
@@ -25,7 +26,7 @@ router.get('/', (req, res) => {
  * @desc    Create a game
  * @access  Public
  */
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   try {
     const words = await Word.find();
     let word;
@@ -117,6 +118,10 @@ router.put('/:id', async (req, res) => {
       if (game.turns === 0) {
         game.status = 'loss';
       }
+    }
+
+    if (game.status !== 'unfinished') {
+      game.view = word.answer;
     }
 
     const updatedGame = await game.save();

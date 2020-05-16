@@ -13,7 +13,7 @@ class GameView extends Component {
     this.props.makeGuess(id, this.state);
   };
 
-  LetterButton = (letter) => {
+  createLetterButton = (letter) => {
     const { game } = this.props.game;
 
     const isInView = game.view && game.view.includes(letter);
@@ -34,10 +34,17 @@ class GameView extends Component {
       disabled = false;
     }
 
+    if (game.status !== 'unfinished') disabled = true;
+
+    const style = {
+      display: 'flex',
+      justifyContent: 'center',
+    };
+
     return (
-      <Col>
+      <Col style={style}>
         <Button
-          className="mr-0"
+          className="btn-letter mt-4"
           size="sm"
           color={color}
           onClick={() => this.props.makeGuess(game._id, { guess: letter })}
@@ -77,7 +84,7 @@ class GameView extends Component {
         </section>
 
         <section className="ftco-section ftco-degree-bg contact-section">
-          <Container className="bg-white">
+          <Container className="bg-light">
             <div className="row d-flex mb-5 contact-info">
               <div className="col-md-12 mb-4">
                 <h2 className="h4 view">{game.view}</h2>
@@ -87,40 +94,40 @@ class GameView extends Component {
             <div className="row block-9">
               <div className="col-md-6 pr-md-5">
                 <Row>
-                  {this.LetterButton('a')}
-                  {this.LetterButton('b')}
-                  {this.LetterButton('c')}
-                  {this.LetterButton('d')}
-                  {this.LetterButton('e')}
-                  {this.LetterButton('f')}
+                  {this.createLetterButton('a')}
+                  {this.createLetterButton('b')}
+                  {this.createLetterButton('c')}
+                  {this.createLetterButton('d')}
+                  {this.createLetterButton('e')}
+                  {this.createLetterButton('f')}
                 </Row>
                 <Row>
-                  {this.LetterButton('g')}
-                  {this.LetterButton('h')}
-                  {this.LetterButton('i')}
-                  {this.LetterButton('j')}
-                  {this.LetterButton('k')}
-                  {this.LetterButton('l')}
+                  {this.createLetterButton('g')}
+                  {this.createLetterButton('h')}
+                  {this.createLetterButton('i')}
+                  {this.createLetterButton('j')}
+                  {this.createLetterButton('k')}
+                  {this.createLetterButton('l')}
                 </Row>
                 <Row>
-                  {this.LetterButton('m')}
-                  {this.LetterButton('n')}
-                  {this.LetterButton('o')}
-                  {this.LetterButton('p')}
-                  {this.LetterButton('q')}
-                  {this.LetterButton('r')}
+                  {this.createLetterButton('m')}
+                  {this.createLetterButton('n')}
+                  {this.createLetterButton('o')}
+                  {this.createLetterButton('p')}
+                  {this.createLetterButton('q')}
+                  {this.createLetterButton('r')}
                 </Row>
                 <Row>
-                  {this.LetterButton('s')}
-                  {this.LetterButton('t')}
-                  {this.LetterButton('u')}
-                  {this.LetterButton('v')}
-                  {this.LetterButton('w')}
-                  {this.LetterButton('x')}
+                  {this.createLetterButton('s')}
+                  {this.createLetterButton('t')}
+                  {this.createLetterButton('u')}
+                  {this.createLetterButton('v')}
+                  {this.createLetterButton('w')}
+                  {this.createLetterButton('x')}
                 </Row>
                 <Row>
-                  {this.LetterButton('y')}
-                  {this.LetterButton('z')}
+                  {this.createLetterButton('y')}
+                  {this.createLetterButton('z')}
                 </Row>
               </div>
               <div className="col-md-6" id="image">

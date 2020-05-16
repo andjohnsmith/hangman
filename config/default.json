@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://asmith:QvmtH4BaV0B9R3xJ@cluster0-ctkvy.mongodb.net/hangman?retryWrites=true&w=majority",
+  "jwtSecret": "hangman_secret"
+}

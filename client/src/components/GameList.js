@@ -49,53 +49,57 @@ class GameList extends Component {
             </div>
           </div>
         </section>
-        <section className="ftco-section-featured ftco-degree-bg">
-          <Container>
-            <Table
-              hover
-              bordered
-              responsive
-              style={{ backgroundColor: 'white' }}
-            >
-              <thead className="thead-light">
-                <tr>
-                  <th>View</th>
-                  <th>Difficulty</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {games.map(({ _id, view, difficulty, status, turns }) => (
-                  <tr key={_id} className={this.getRowColor(status)}>
-                    <td className="view">{view}</td>
-                    <td>{difficulty}</td>
-                    <td>
-                      {status === 'unfinished' ? turns + ' turns left' : status}
-                    </td>
-                    <td>
-                      <Button
-                        className="mr-1"
-                        color="primary"
-                        size="sm"
-                        onClick={this.onPlayClick.bind(this, _id)}
-                      >
-                        <i className="fas fa-play"></i>
-                      </Button>
-                      <Button
-                        color="primary"
-                        size="sm"
-                        onClick={this.onDeleteClick.bind(this, _id)}
-                      >
-                        <i className="fas fa-trash"></i>
-                      </Button>
-                    </td>
+        {games.length > 0 && (
+          <section className="ftco-section-featured">
+            <Container>
+              <Table
+                hover
+                responsive
+                style={{ backgroundColor: 'white' }}
+                className="border-bottom border-left border-right"
+              >
+                <thead className="thead-light">
+                  <tr>
+                    <th>View</th>
+                    <th>Difficulty</th>
+                    <th>Status</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Container>
-        </section>
+                </thead>
+                <tbody>
+                  {games.map(({ _id, view, difficulty, status, turns }) => (
+                    <tr key={_id} className={this.getRowColor(status)}>
+                      <td className="view">{view}</td>
+                      <td>{difficulty}</td>
+                      <td>
+                        {status === 'unfinished'
+                          ? turns + ' turns left'
+                          : status}
+                      </td>
+                      <td>
+                        <Button
+                          className="mr-1"
+                          color="primary"
+                          size="sm"
+                          onClick={this.onPlayClick.bind(this, _id)}
+                        >
+                          <i className="fas fa-play"></i>
+                        </Button>
+                        <Button
+                          color="primary"
+                          size="sm"
+                          onClick={this.onDeleteClick.bind(this, _id)}
+                        >
+                          <i className="fas fa-trash"></i>
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Container>
+          </section>
+        )}
       </React.Fragment>
     );
   }

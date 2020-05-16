@@ -504,3 +504,15 @@ td {
     padding: 6em 0;
   }
 }
+
+.bg-light {
+  background-color: #f8faff !important;
+}
+
+.btn-letter {
+  font-family: var(--font-family-monospace);
+}
+
+.disabled:hover {
+  cursor: default;
+}
