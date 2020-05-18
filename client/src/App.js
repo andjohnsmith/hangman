@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Register from './components/auth/Register';
 import AppNavbar from './components/AppNavbar';
 import GameList from './components/GameList';
 import GameView from './components/GameView';
@@ -22,6 +23,7 @@ class App extends Component {
         <div className="App">
           <AppNavbar />
           <Router>
+            <Route exact path="/" component={Register} />
             <Route exact path="/games" component={GameList} />
             <Route exact path="/game/:id" component={GameView} />
           </Router>
