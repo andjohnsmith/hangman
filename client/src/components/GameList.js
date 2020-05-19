@@ -11,7 +11,7 @@ class GameList extends Component {
   }
 
   onPlayClick = (id) => {
-    window.location.href = `/game/${id}`;
+    this.props.history.push(`/game/${id}`);
   };
 
   onDeleteClick = (id) => {
@@ -49,7 +49,7 @@ class GameList extends Component {
             </div>
           </div>
         </section>
-        {games.length > 0 && (
+        {games.length > 0 && !this.props.list.loading && (
           <section className="ftco-section-featured">
             <Container>
               <Table

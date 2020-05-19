@@ -516,3 +516,9 @@ td {
 .disabled:hover {
   cursor: default;
 }
+
+.credentials {
+  width: 75%;
+  margin: auto;
+  margin-bottom: 1em;
+}

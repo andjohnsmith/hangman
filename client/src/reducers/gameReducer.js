@@ -1,7 +1,8 @@
-import { GET_GAME, MAKE_GUESS } from '../actions/types';
+import { GET_GAME, MAKE_GUESS, GAMES_LOADING } from '../actions/types';
 
 const initialState = {
   game: '',
+  loading: false,
 };
 
 export default function (state = initialState, action) {
@@ -9,6 +10,12 @@ export default function (state = initialState, action) {
     case GET_GAME:
       return {
         game: action.payload,
+        loading: false,
+      };
+    case GAMES_LOADING:
+      return {
+        ...state,
+        loading: true,
       };
     case MAKE_GUESS:
       return {

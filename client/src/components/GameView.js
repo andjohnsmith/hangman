@@ -57,7 +57,9 @@ class GameView extends Component {
   };
 
   render() {
-    const { game } = this.props.game;
+    const { game, loading } = this.props.game;
+
+    console.log('game loading? ' + this.props.game.loading);
 
     return (
       <React.Fragment>
@@ -76,7 +78,7 @@ class GameView extends Component {
                     </span>
                     / <span>Game</span>
                   </p>
-                  <h1 className="mb-3 bread view">{game.view}</h1>
+                  <h1 className="mb-3 bread view">{!loading && game.view}</h1>
                 </div>
               </div>
             </div>
@@ -84,57 +86,59 @@ class GameView extends Component {
         </section>
 
         <section className="ftco-section ftco-degree-bg contact-section">
-          <Container className="bg-light">
-            <div className="row d-flex mb-5 contact-info">
-              <div className="col-md-12 mb-4">
-                <h2 className="h4 view">{game.view}</h2>
+          {!loading && (
+            <Container className="bg-light">
+              <div className="row d-flex mb-5 contact-info">
+                <div className="col-md-12 mb-4">
+                  <h2 className="h4 view">{game.view}</h2>
+                </div>
+                <div className="w-100"></div>
               </div>
-              <div className="w-100"></div>
-            </div>
-            <div className="row block-9">
-              <div className="col-md-6 pr-md-5">
-                <Row>
-                  {this.createLetterButton('a')}
-                  {this.createLetterButton('b')}
-                  {this.createLetterButton('c')}
-                  {this.createLetterButton('d')}
-                  {this.createLetterButton('e')}
-                  {this.createLetterButton('f')}
-                </Row>
-                <Row>
-                  {this.createLetterButton('g')}
-                  {this.createLetterButton('h')}
-                  {this.createLetterButton('i')}
-                  {this.createLetterButton('j')}
-                  {this.createLetterButton('k')}
-                  {this.createLetterButton('l')}
-                </Row>
-                <Row>
-                  {this.createLetterButton('m')}
-                  {this.createLetterButton('n')}
-                  {this.createLetterButton('o')}
-                  {this.createLetterButton('p')}
-                  {this.createLetterButton('q')}
-                  {this.createLetterButton('r')}
-                </Row>
-                <Row>
-                  {this.createLetterButton('s')}
-                  {this.createLetterButton('t')}
-                  {this.createLetterButton('u')}
-                  {this.createLetterButton('v')}
-                  {this.createLetterButton('w')}
-                  {this.createLetterButton('x')}
-                </Row>
-                <Row>
-                  {this.createLetterButton('y')}
-                  {this.createLetterButton('z')}
-                </Row>
+              <div className="row block-9">
+                <div className="col-md-6 pr-md-5">
+                  <Row>
+                    {this.createLetterButton('a')}
+                    {this.createLetterButton('b')}
+                    {this.createLetterButton('c')}
+                    {this.createLetterButton('d')}
+                    {this.createLetterButton('e')}
+                    {this.createLetterButton('f')}
+                  </Row>
+                  <Row>
+                    {this.createLetterButton('g')}
+                    {this.createLetterButton('h')}
+                    {this.createLetterButton('i')}
+                    {this.createLetterButton('j')}
+                    {this.createLetterButton('k')}
+                    {this.createLetterButton('l')}
+                  </Row>
+                  <Row>
+                    {this.createLetterButton('m')}
+                    {this.createLetterButton('n')}
+                    {this.createLetterButton('o')}
+                    {this.createLetterButton('p')}
+                    {this.createLetterButton('q')}
+                    {this.createLetterButton('r')}
+                  </Row>
+                  <Row>
+                    {this.createLetterButton('s')}
+                    {this.createLetterButton('t')}
+                    {this.createLetterButton('u')}
+                    {this.createLetterButton('v')}
+                    {this.createLetterButton('w')}
+                    {this.createLetterButton('x')}
+                  </Row>
+                  <Row>
+                    {this.createLetterButton('y')}
+                    {this.createLetterButton('z')}
+                  </Row>
+                </div>
+                <div className="col-md-6" id="image">
+                  <img src={`/images/${game.turns}.png`} alt="game"></img>
+                </div>
               </div>
-              <div className="col-md-6" id="image">
-                <img src={`/images/${game.turns}.png`} alt="game"></img>
-              </div>
-            </div>
-          </Container>
+            </Container>
+          )}
         </section>
       </React.Fragment>
     );
