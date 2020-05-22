@@ -72,7 +72,6 @@ export const loginUser = ({ username, password }) => (dispatch) => {
 };
 
 export const logoutUser = () => {
-  console.log('logging out');
   return { type: LOGOUT_SUCCESS };
 };
 

@@ -32,6 +32,7 @@ class GameModal extends Component {
     e.preventDefault();
 
     const newGame = {
+      user: this.props.auth.user.id,
       difficulty: this.state.difficulty,
     };
 
@@ -79,6 +80,7 @@ class GameModal extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   game: state.game,
 });
 

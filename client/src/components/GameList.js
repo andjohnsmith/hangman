@@ -7,7 +7,10 @@ import PropTypes from 'prop-types';
 
 class GameList extends Component {
   componentDidMount() {
-    this.props.getGames();
+    const { user } = this.props.auth;
+    const res = { user: user.id };
+    console.log('gamelist: ' + res.user);
+    this.props.getGames(res);
   }
 
   onPlayClick = (id) => {
@@ -109,8 +112,9 @@ GameList.propTypes = {
   getGames: PropTypes.func.isRequired,
   deleteGame: PropTypes.func.isRequired,
   list: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({ list: state.list });
+const mapStateToProps = (state) => ({ list: state.list, auth: state.auth });
 
 export default connect(mapStateToProps, { getGames, deleteGame })(GameList);

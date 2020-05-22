@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const GameSchema = new Schema(
   {
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     word: { type: Schema.Types.ObjectId, ref: 'Word', required: true },
     view: { type: String, required: true },
     turns: { type: Number, required: true, default: 6 },

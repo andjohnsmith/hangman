@@ -59,8 +59,6 @@ class GameView extends Component {
   render() {
     const { game, loading } = this.props.game;
 
-    console.log('game loading? ' + this.props.game.loading);
-
     return (
       <React.Fragment>
         <section className="home-slider ftco-degree-bg">
@@ -74,7 +72,7 @@ class GameView extends Component {
                 <div className="col-md-10 col-sm-12 ftco-animate mb-4 text-center">
                   <p className="breadcrumbs">
                     <span className="mr-2">
-                      <Link to="/games">List</Link>
+                      <Link to="/list">List</Link>
                     </span>
                     / <span>Game</span>
                   </p>

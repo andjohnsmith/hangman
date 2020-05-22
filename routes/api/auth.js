@@ -57,6 +57,13 @@ router.post('/', (req, res) => {
 router.get('/user', auth, (req, res) => {
   User.findById(req.user.id)
     .select('-password')
-    .then((user) => res.json(user));
+    .then((user) =>
+      res.json({
+        id: user._id,
+        name: user.name,
+        username: user.username,
+      }),
+    );
 });
+
 module.exports = router;

@@ -7,11 +7,12 @@ const Word = require('../../models/Word');
 
 /**
  * @route   GET /api/games
- * @desc    Retrieve all games
- * @access  Public
+ * @desc    Retrieve a user's games
+ * @access  Private
  */
 router.get('/', (req, res) => {
-  Game.find()
+  console.log('server body: ' + req.body.user);
+  Game.find({ user: req.body.user })
     .sort({ updatedAt: -1 })
     .then((games) => {
       for (let game of games) {
@@ -36,6 +37,7 @@ router.post('/', auth, async (req, res) => {
     } while (word.difficulty !== req.body.difficulty);
 
     const newGame = new Game({
+      user: req.body.user,
       word: word._id,
       view: word.view,
       difficulty: req.body.difficulty,

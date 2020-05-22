@@ -33,7 +33,7 @@ class AppNavbar extends Component {
       <React.Fragment>
         <Navbar color="dark" dark expand="sm" className="ftco-navbar-light">
           <Container>
-            <NavbarBrand href="/">Hangman</NavbarBrand>
+            <NavbarBrand href="/list">Hangman</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>

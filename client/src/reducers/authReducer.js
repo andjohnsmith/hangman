@@ -17,7 +17,6 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-  console.log('switching with ' + action.type);
   switch (action.type) {
     case USER_LOADING:
       return {
