@@ -10,16 +10,57 @@ const Word = require('../../models/Word');
  * @desc    Retrieve a user's games
  * @access  Private
  */
-router.get('/', (req, res) => {
-  console.log('server body: ' + req.body.user);
-  Game.find({ user: req.body.user })
-    .sort({ updatedAt: -1 })
-    .then((games) => {
-      for (let game of games) {
-        game.word = undefined;
-      }
-      res.json(games);
-    });
+router.get('/', auth, async (req, res) => {
+  try {
+    const games = Game.find({ user: req.user.id }).sort({ updatedAt: -1 });
+    const result = [];
+
+    for (const game of games) {
+      result.push({
+        id: game._id,
+        view: game.view,
+        turns: game.turns,
+        status: game.status,
+        guesses: game.guesses,
+        difficulty: game.difficulty,
+      });
+    }
+
+    res.json(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+/**
+ * @route   GET /api/games/:id
+ * @desc    Get a game by its ID
+ * @access  Private
+ */
+router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
+  try {
+    const game = await Game.findById(req.params.id);
+
+    // Check user
+    if (game.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'User not authorized' });
+    }
+
+    const result = {
+      id: game._id,
+      view: game.view,
+      turns: game.turns,
+      status: game.status,
+      guesses: game.guesses,
+      difficulty: game.difficulty,
+    };
+
+    res.json(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
 /**
@@ -27,60 +68,56 @@ router.get('/', (req, res) => {
  * @desc    Create a game
  * @access  Private
  */
-router.post('/', auth, async (req, res) => {
-  try {
-    const words = await Word.find();
-    let word;
-
-    do {
-      word = words[Math.floor(Math.random() * words.length)];
-    } while (word.difficulty !== req.body.difficulty);
-
-    const newGame = new Game({
-      user: req.body.user,
-      word: word._id,
-      view: word.view,
-      difficulty: req.body.difficulty,
-    });
-
-    const game = await newGame.save();
-
-    if (!game) {
-      throw Error('Something went wrong while saving.');
+router.post(
+  '/',
+  [auth, [check('difficulty', 'Difficulty is required').not().isEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
 
-    game.word = undefined;
+    try {
+      const words = await Word.find();
+      let word;
 
-    res.status(200).json(game);
-  } catch (e) {
-    res.status(400).json({ message: e.message });
-  }
-});
+      // Assign a word with the requested difficulty
+      do {
+        word = words[Math.floor(Math.random() * words.length)];
+      } while (word.difficulty !== req.body.difficulty);
 
-/**
- * @route   GET /api/games/:id
- * @desc    Get a game
- * @access  Private
- */
-router.get('/:id', auth, async (req, res) => {
-  try {
-    const game = await Game.findById(req.params.id);
-    if (!game) throw Error('Game does not exist');
+      const newGame = new Game({
+        user: req.user.id,
+        word: word._id,
+        view: word.view,
+        difficulty: req.body.difficulty,
+      });
 
-    game.word = undefined;
+      const game = await newGame.save();
 
-    res.status(200).json(game);
-  } catch (e) {
-    res.status(400).json({ message: e.message });
-  }
-});
+      const result = {
+        id: game._id,
+        view: game.view,
+        turns: game.turns,
+        status: game.status,
+        guesses: game.guesses,
+        difficulty: game.difficulty,
+      };
+
+      res.json(result);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  },
+);
 
 /**
  * @route   PUT /api/games/:id
  * @desc    Update a game
  * @access  Private
  */
-router.put('/:id', auth, async (req, res) => {
+router.put('/:id', [auth, checkObjectId('id')], async (req, res) => {
   try {
     let game = await Game.findById(req.params.id);
     if (!game) throw Error('Game does not exist');
@@ -129,11 +166,19 @@ router.put('/:id', auth, async (req, res) => {
     const updatedGame = await game.save();
     if (!updatedGame) throw Error('Could not update game');
 
-    updatedGame.word = undefined;
+    const result = {
+      id: updatedGame._id,
+      view: updatedGame.view,
+      turns: updatedGame.turns,
+      status: updatedGame.status,
+      guesses: updatedGame.guesses,
+      difficulty: updatedGame.difficulty,
+    };
 
-    res.status(200).json(updatedGame);
-  } catch (e) {
-    res.status(400).json({ message: e.message });
+    res.json(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
   }
 });
 
@@ -142,10 +187,17 @@ router.put('/:id', auth, async (req, res) => {
  * @desc    Delete a game
  * @access  Private
  */
-router.delete('/:id', auth, (req, res) => {
-  Game.findById(req.params.id)
-    .then((game) => game.remove().then(() => res.json({ success: true })))
-    .catch((err) => res.status(404).json({ success: false }));
+router.delete('/:id', [auth, checkObjectId('id')], async (req, res) => {
+  try {
+    const game = await Game.findById(req.params.id);
+
+    await game.remove();
+
+    res.json({ msg: 'Game removed' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
 });
 
 module.exports = router;
