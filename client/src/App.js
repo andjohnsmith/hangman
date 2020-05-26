@@ -14,26 +14,25 @@ import GameView from './components/GameView';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-class App extends Component {
-  componentDidMount() {
+const App = () => {
+  useEffect(() => {
+    setAuthToken(localStorage.token);
     store.dispatch(loadUser());
-  }
+  }, []);
 
-  render() {
-    return (
-      <Provider store={store}>
-        <Router>
-          <div className="App">
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <PrivateRoute exact path="/list" component={GameList} />
-            <PrivateRoute exact path="/game/:id" component={GameView} />
-          </div>
-        </Router>
-      </Provider>
-    );
-  }
-}
+  return (
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
+          <PrivateRoute exact path="/list" component={GameList} />
+          <PrivateRoute exact path="/game/:id" component={GameView} />
+        </div>
+      </Router>
+    </Provider>
+  );
+};
 
 export default App;
