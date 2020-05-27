@@ -1,22 +1,22 @@
+import api from '../utils/api';
 import axios from 'axios';
 import { GET_GAMES, ADD_GAME, DELETE_GAME, GAMES_LOADING } from './types';
 import { tokenConfig } from './authActions';
 
-export const getGames = ({ user }) => (dispatch) => {
-  dispatch(setGamesLoading);
+export const getGames = () => async (dispatch) => {
+  try {
+    const res = await api.get('/games');
 
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  const body = JSON.stringify({ user });
-  console.log('body: ' + body);
-
-  axios
-    .get('/api/games', body, config)
-    .then((res) => dispatch({ type: GET_GAMES, payload: res.data }));
+    dispatch({
+      type: GET_GAMES,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: 'POST_ERROR',
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
 };
 
 export const addGame = (game) => (dispatch, getState) => {

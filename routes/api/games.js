@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 
 const Game = require('../../models/Game');
 const Word = require('../../models/Word');
+const checkObjectId = require('../../middleware/checkObjectId');
 
 /**
  * @route   GET /api/games
@@ -12,7 +14,9 @@ const Word = require('../../models/Word');
  */
 router.get('/', auth, async (req, res) => {
   try {
-    const games = Game.find({ user: req.user.id }).sort({ updatedAt: -1 });
+    const games = await Game.find({ user: req.user.id }).sort({
+      updatedAt: -1,
+    });
     const result = [];
 
     for (const game of games) {

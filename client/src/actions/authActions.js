@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../utils/api';
 import { returnErrors } from './errorActions';
 
 import {
@@ -13,84 +13,66 @@ import {
 } from './types';
 
 // Check token and load user
-export const loadUser = () => (dispatch, getState) => {
-  // User loading
-  dispatch({ type: USER_LOADING });
+export const loadUser = () => async (dispatch) => {
+  try {
+    const res = await api.get('/auth');
 
-  axios
-    .get('/api/auth/user', tokenConfig(getState))
-    .then((res) =>
-      dispatch({
-        type: USER_LOADED,
-        payload: res.data,
-      }),
-    )
-    .catch((err) => {
-      dispatch(returnErrors(err.response.data, err.response.status));
-      dispatch({ type: AUTH_ERROR });
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data,
     });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
 };
 
-export const register = ({ name, username, password }) => (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
+export const register = ({ name, username, password }) => async (dispatch) => {
   const body = JSON.stringify({ name, username, password });
 
-  axios
-    .post('/api/users', body, config)
-    .then((res) => dispatch({ type: REGISTER_SUCCESS, payload: res.data }))
-    .catch((err) => {
-      dispatch(
-        returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL'),
-      );
-      dispatch({ type: REGISTER_FAIL });
+  try {
+    const res = await api.post('/users', body);
+
+    dispatch({
+      type: REGISTER_SUCCESS,
+      payload: res.data,
     });
+
+    dispatch(loadUser());
+  } catch (err) {
+    dispatch(
+      returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL'),
+    );
+    dispatch({ type: REGISTER_FAIL });
+  }
 };
 
-export const loginUser = ({ username, password }) => (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
+export const loginUser = (username, password) => async (dispatch) => {
   const body = JSON.stringify({ username, password });
 
-  axios
-    .post('/api/auth', body, config)
-    .then((res) => dispatch({ type: LOGIN_SUCCESS, payload: res.data }))
-    .catch((err) => {
-      dispatch(
-        returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL'),
-      );
-      dispatch({ type: LOGIN_FAIL });
+  try {
+    const res = await api.post('/auth', body);
+
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: res.data,
     });
+
+    dispatch(loadUser());
+  } catch (err) {
+    dispatch(
+      returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL'),
+    );
+
+    dispatch({
+      type: LOGIN_FAIL,
+    });
+  }
 };
 
 export const logoutUser = () => {
   return { type: LOGOUT_SUCCESS };
 };
 
-// Set up config/headers and token
-export const tokenConfig = (getState) => {
-  // Get token from local storage
-  const token = getState().auth.token;
-
-  // Set headers
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  // If token, then add to headers
-  if (token) {
-    config.headers['x-auth-token'] = token;
-  }
-
-  return config;
-};
+export const tokenConfig = '';

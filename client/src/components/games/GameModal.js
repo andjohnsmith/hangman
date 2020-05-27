@@ -10,7 +10,7 @@ import {
   Input,
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import { addGame } from '../actions/listActions';
+import { addGame } from '../../actions/listActions';
 
 class GameModal extends Component {
   state = {

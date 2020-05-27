@@ -1,6 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const path = require('path');
+// const cors = require('cors');
 
 const app = express();
 
@@ -8,13 +9,14 @@ const app = express();
 connectDB();
 
 // Init Middleware
+// app.use(cors());
 app.use(express.json());
 
 // Define Routes
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
-app.use('/api/profile', require('./routes/api/games'));
-app.use('/api/posts', require('./routes/api/words'));
+app.use('/api/games', require('./routes/api/games'));
+app.use('/api/words', require('./routes/api/words'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
