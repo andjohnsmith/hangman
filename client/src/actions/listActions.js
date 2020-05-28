@@ -1,7 +1,5 @@
 import api from '../utils/api';
-import axios from 'axios';
 import { GET_GAMES, ADD_GAME, DELETE_GAME, GAMES_LOADING } from './types';
-import { tokenConfig } from './authActions';
 
 export const getGames = () => async (dispatch) => {
   try {
@@ -13,28 +11,42 @@ export const getGames = () => async (dispatch) => {
     });
   } catch (err) {
     dispatch({
-      type: 'POST_ERROR',
+      type: 'GAME_ERROR',
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
-export const addGame = (game) => (dispatch, getState) => {
-  axios.post('/api/games', game, tokenConfig(getState)).then((res) =>
+export const addGame = (difficulty) => async (dispatch) => {
+  try {
+    const res = await api.post('/games', difficulty);
+
     dispatch({
       type: ADD_GAME,
       payload: res.data,
-    }),
-  );
+    });
+  } catch (err) {
+    dispatch({
+      type: 'GAME_ERROR',
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
 };
 
-export const deleteGame = (id) => (dispatch, getState) => {
-  axios.delete(`/api/games/${id}`, tokenConfig(getState)).then((res) =>
+export const deleteGame = (id) => async (dispatch) => {
+  try {
+    await api.delete(`/games/${id}`);
+
     dispatch({
       type: DELETE_GAME,
       payload: id,
-    }),
-  );
+    });
+  } catch (err) {
+    dispatch({
+      type: 'GAME_ERROR',
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
 };
 
 export const setGamesLoading = () => {

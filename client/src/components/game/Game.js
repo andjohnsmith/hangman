@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'reactstrap';
 import { connect } from 'react-redux';
-import { getGame, makeGuess } from '../actions/gameActions';
+import { getGame, makeGuess } from '../../actions/gameActions';
 
 class GameView extends Component {
   componentDidMount() {

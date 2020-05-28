@@ -22,7 +22,7 @@ const Login = ({ loginUser, isAuthenticated }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/list" />;
+    return <Redirect to="/games" />;
   }
 
   return (

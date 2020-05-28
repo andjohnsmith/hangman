@@ -1,3 +1,16 @@
+body {
+  font-family: 'Work Sans', Arial, sans-serif;
+  background: #fff;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 300;
+  color: #8b8b92;
+}
+
+.App {
+  background: #5cc7c0;
+}
+
 .view {
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -171,31 +184,21 @@ td {
   background-repeat: no-repeat;
   background-position: center center;
   height: calc(100vh - 117px);
-  min-height: 800px;
   position: relative;
 }
-.home-slider .slider-item .overlay {
+
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  content: '';
-  opacity: 0.99;
-  background: #448ef6;
-  background: -moz-linear-gradient(45deg, #29bae4 0%, #ee76ad 100%);
-  background: -webkit-gradient(
-    left bottom,
-    right top,
-    color-stop(0%, #29bae4),
-    color-stop(100%, #ee76ad)
-  );
-  background: -webkit-linear-gradient(45deg, #29bae4 0%, #ee76ad 100%);
-  background: -o-linear-gradient(45deg, #29bae4 0%, #ee76ad 100%);
-  background: -ms-linear-gradient(45deg, #29bae4 0%, #ee76ad 100%);
-  background: linear-gradient(45deg, #29bae4 0%, #ee76ad 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#448ef6', endColorstr='#af05a9', GradientType=1 );
+  width: 100vw;
+  height: 100vh;
+  background: #5cc7c0;
+  background: linear-gradient(#ee8365, #d4748a, #5cc7c0);
 }
+
 .home-slider .slider-item .slider-text {
   color: #fff;
   height: calc(100vh - 117px);
@@ -258,9 +261,6 @@ td {
 }
 .home-slider .slider-item .slider-text .btn-primary {
   border: 1px solid rgba(255, 255, 255, 0.4);
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
   border-radius: 30px;
 }
 .home-slider .slider-item .slider-text .btn-primary:hover,
@@ -331,11 +331,7 @@ td {
 
 .btn {
   cursor: pointer;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
   border-radius: 30px;
-  -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
 .btn:hover,
@@ -416,7 +412,7 @@ td {
 }
 
 .ftco-section-featured {
-  margin-top: -250px;
+  margin-top: 0.5em;
   padding-bottom: 7em;
 }
 .ftco-section-featured .container {

@@ -26,7 +26,7 @@ export default function (state = initialState, action) {
     case DELETE_GAME:
       return {
         ...state,
-        games: state.games.filter((game) => game._id !== action.payload),
+        games: state.games.filter((game) => game.id !== action.payload),
       };
     case GAMES_LOADING:
       return {

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getGames } from '../../actions/listActions';
 import PropTypes from 'prop-types';
 
-const GameList = ({ getGames, list: { games } }) => {
+const GameList = ({ getGames, list: { games, loading } }) => {
   useEffect(() => {
     getGames();
   }, [getGames]);
@@ -14,7 +14,7 @@ const GameList = ({ getGames, list: { games } }) => {
   return (
     <Fragment>
       <GamesBanner />
-      {games.length > 0 && !this.props.list.loading && (
+      {games.length > 0 && !loading && (
         <section className="ftco-section-featured">
           <Container>
             <Table

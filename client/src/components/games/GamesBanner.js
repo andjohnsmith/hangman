@@ -3,7 +3,7 @@ import GameModal from './GameModal';
 
 const GamesBanner = () => {
   return (
-    <section className="home-slider ftco-degree-bg">
+    <section className="home-slider">
       <div className="slider-item">
         <div className="overlay"></div>
         <div className="container">
