@@ -1,18 +1,26 @@
-import axios from 'axios';
+import api from '../utils/api';
 import { GET_GAME, MAKE_GUESS, GAME_LOADING } from './types';
-import { tokenConfig } from './authActions';
 
-export const getGame = (id) => (dispatch, getState) => {
+export const getGame = (id) => async (dispatch) => {
   dispatch(setGameLoading);
-  axios
-    .get(`/api/games/${id}`, tokenConfig(getState))
-    .then((res) => dispatch({ type: GET_GAME, payload: res.data }));
+
+  try {
+    const res = await api.get(`/games/${id}`);
+
+    dispatch({ type: GET_GAME, payload: res.data });
+  } catch (err) {
+    console.log('error');
+  }
 };
 
-export const makeGuess = (id, guess) => (dispatch, getState) => {
-  axios
-    .put(`http://localhost:5000/api/games/${id}`, guess, tokenConfig(getState))
-    .then((res) => dispatch({ type: MAKE_GUESS, payload: res.data }));
+export const makeGuess = (id, guess) => async (dispatch) => {
+  try {
+    const res = await api.put(`games/${id}`, guess);
+
+    dispatch({ type: MAKE_GUESS, payload: res.data });
+  } catch (err) {
+    console.log('err');
+  }
 };
 
 export const setGameLoading = () => {
