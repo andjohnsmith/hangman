@@ -10,6 +10,7 @@ import Login from './components/auth/Login';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Games from './components/games/Games';
 import Game from './components/game/Game';
+import Words from './components/Words';
 
 import setAuthToken from './utils/setAuthToken';
 
@@ -29,6 +30,7 @@ const App = () => {
           <Route exact path="/" component={Landing} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/words" component={Words} />
           <PrivateRoute exact path="/games" component={Games} />
           <PrivateRoute exact path="/games/:id" component={Game} />
         </div>

@@ -26,11 +26,11 @@ router.post('/', (req, res) => {
   let difficulty = '';
 
   for (let c of answer) {
-    if (c !== '-') {
+    if (c >= 'a' && c <= 'z') {
       view += '_';
       length++;
     } else {
-      view += '-';
+      view += c;
     }
   }
 
