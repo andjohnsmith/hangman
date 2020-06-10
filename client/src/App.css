@@ -7,6 +7,14 @@ body {
   color: #8b8b92;
 }
 
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  height: auto;
+}
+
 .App {
   background: #5cc7c0;
 }

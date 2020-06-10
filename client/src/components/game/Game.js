@@ -79,7 +79,7 @@ const Game = ({
         return fourTurns;
       case 5:
         return fiveTurns;
-      case 6:
+      default:
         return sixTurns;
     }
   };
@@ -153,7 +153,7 @@ const Game = ({
                   {createLetterButton('z')}
                 </Row>
               </div>
-              <div className="col-md-6" id="image">
+              <div className="col-md-6">
                 <img src={getPicture()} alt="game"></img>
               </div>
             </div>
