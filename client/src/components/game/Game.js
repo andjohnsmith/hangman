@@ -5,6 +5,14 @@ import { Container, Row, Col, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import { getGame, makeGuess } from '../../actions/gameActions';
 
+import noTurns from '../../images/0.png';
+import oneTurn from '../../images/1.png';
+import twoTurns from '../../images/2.png';
+import threeTurns from '../../images/3.png';
+import fourTurns from '../../images/4.png';
+import fiveTurns from '../../images/5.png';
+import sixTurns from '../../images/6.png';
+
 const Game = ({
   getGame,
   makeGuess,
@@ -57,13 +65,29 @@ const Game = ({
     );
   };
 
+  const getPicture = () => {
+    switch (turns) {
+      case 0:
+        return noTurns;
+      case 1:
+        return oneTurn;
+      case 2:
+        return twoTurns;
+      case 3:
+        return threeTurns;
+      case 4:
+        return fourTurns;
+      case 5:
+        return fiveTurns;
+      case 6:
+        return sixTurns;
+    }
+  };
+
   return (
     <Fragment>
       <section className="home-slider">
-        <div
-          className="slider-item bread-wrap"
-          data-stellar-background-ratio="0.5"
-        >
+        <div className="slider-item bread-wrap">
           <div className="overlay"></div>
           <div className="container">
             <div className="row slider-text justify-content-center align-items-center">
@@ -81,7 +105,7 @@ const Game = ({
         </div>
       </section>
 
-      <section className="ftco-section ftco-degree-bg contact-section">
+      <section className="ftco-section contact-section">
         {!loading && (
           <Container className="bg-light">
             <div className="row d-flex mb-5 contact-info">
@@ -130,7 +154,7 @@ const Game = ({
                 </Row>
               </div>
               <div className="col-md-6" id="image">
-                <img src={`/images/${turns}.png`} alt="game"></img>
+                <img src={getPicture()} alt="game"></img>
               </div>
             </div>
           </Container>
