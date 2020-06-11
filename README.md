@@ -6,7 +6,7 @@ Guess some words!
 
 Run `npm install` from both the root and the client folder to install dependencies.
 
-Add a `default.json` file with mongoURI and jwtSecret properties.
+Add a `default.json` file in the `config` folder with mongoURI and jwtSecret properties.
 
 ## Usage
 

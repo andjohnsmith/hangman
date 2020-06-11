@@ -82,13 +82,8 @@ router.post(
     }
 
     try {
-      const words = await Word.find();
-      let word;
-
-      // Assign a word with the requested difficulty
-      do {
-        word = words[Math.floor(Math.random() * words.length)];
-      } while (word.difficulty !== req.body.difficulty);
+      const words = await Word.find({ difficulty: req.body.difficulty });
+      const word = words[Math.floor(Math.random() * words.length)];
 
       const newGame = new Game({
         user: req.user.id,
