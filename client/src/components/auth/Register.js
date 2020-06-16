@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Container, Form, Input, Alert, Button } from 'reactstrap';
+import { Container, Form, Input, Button } from 'reactstrap';
 import { register } from '../../actions/authActions';
 
 const Register = ({ register, isAuthenticated }) => {
